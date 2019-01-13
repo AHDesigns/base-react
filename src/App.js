@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { SizeSniffer } from './sizeSniffer';
-import { WindowWatcher, WindowConsumer } from './WindowWatcher';
+import { WindowWatcher } from './WindowWatcher';
 import { Comp } from './Tester';
+import { Expand } from './Expand';
 
 const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
   <SizeSniffer>
@@ -16,22 +17,40 @@ const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
 );
 
 class App extends Component {
+  state = {
+    page: true
+  };
+
+  toggle = () => {
+    this.setState(({ page }) => ({ page: !page }));
+  };
   render() {
     return (
       <WindowWatcher>
-        <div className="App">
-          <Sniffed>
-            {props => (
-              <Sniffed {...props}>
-                {props => (
-                  <Sniffed {...{ ...props, watchWindow: true }}>
-                    {props => <Sniffed {...props}>{() => <div />}</Sniffed>}
-                  </Sniffed>
-                )}
-              </Sniffed>
-            )}
-          </Sniffed>
-        </div>
+        <button onClick={this.toggle}>page toggle</button>
+        {!this.state.page && (
+          <div className="layout-wrapper">
+            <div style={{ flexGrow: '1' }}>
+              <Sniffed>{() => {}}</Sniffed>
+            </div>
+            <Expand />
+          </div>
+        )}
+        {this.state.page && (
+          <div className="App">
+            <Sniffed>
+              {props => (
+                <Sniffed {...props}>
+                  {props => (
+                    <Sniffed {...{ ...props, watchWindow: true }}>
+                      {props => <Sniffed {...props}>{() => {}}</Sniffed>}
+                    </Sniffed>
+                  )}
+                </Sniffed>
+              )}
+            </Sniffed>
+          </div>
+        )}
       </WindowWatcher>
     );
   }

@@ -9,21 +9,20 @@ const globalBreakpoints = {
 
 const timeouts = {};
 
-const debounce = ({ id = 1, fn, timeout = 400 }) => {
+export function debounce({ id, fn, timeout = 400 }) {
   clearTimeout(timeouts[id]);
   timeouts[id] = setTimeout(() => {
     delete timeouts[id];
     fn();
   }, timeout);
-};
+}
 
-const WindowSizeContext = React.createContext({
-  windowWidth: 0,
-  windowHeight: 0
-});
+const WindowSizeContext = React.createContext({ windowWidth: 0, height: 0 });
 export const WindowConsumer = WindowSizeContext.Consumer;
 
 export class WindowWatcher extends React.Component {
+  state = { value: {} };
+
   componentDidMount() {
     window.addEventListener('resize', this.queueWindowCalc);
     this.getWindowSize();
@@ -41,7 +40,7 @@ export class WindowWatcher extends React.Component {
     };
 
     const windowWidth = Math.round(window.innerWidth);
-    const windowHeight = Math.round(window.innerWidth);
+    const height = Math.round(window.innerWidth);
     const isSmall = windowWidth < medium;
     const isMedium = windowWidth >= medium && windowWidth < large;
     const isLarge = windowWidth >= large && windowWidth < xLarge;
@@ -54,13 +53,15 @@ export class WindowWatcher extends React.Component {
     ].find(({ bool }) => bool).str;
 
     this.setState({
-      windowWidth,
-      windowHeight,
-      isSmall,
-      isMedium,
-      isLarge,
-      isXLarge,
-      size
+      value: {
+        windowWidth,
+        height,
+        isSmall,
+        isMedium,
+        isLarge,
+        isXLarge,
+        size
+      }
     });
   };
 
@@ -70,7 +71,7 @@ export class WindowWatcher extends React.Component {
 
   render() {
     return (
-      <WindowSizeContext.Provider value={{ ...this.state }}>
+      <WindowSizeContext.Provider value={this.state.value}>
         {this.props.children}
       </WindowSizeContext.Provider>
     );

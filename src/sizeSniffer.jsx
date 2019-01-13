@@ -2,32 +2,30 @@ import React from 'react';
 
 import { WindowConsumer } from './WindowWatcher';
 
-const timeouts = {};
+export const SizeSniffer = ({ children }) => (
+  <WindowConsumer>
+    {windowValues => (
+      <SizeSnifferChild windowValues={windowValues}>
+        {values => children(values)}
+      </SizeSnifferChild>
+    )}
+  </WindowConsumer>
+);
 
-const debounce = ({ id, fn, timeout = 400 }) => {
-  clearTimeout(timeouts[id]);
-  timeouts[id] = setTimeout(() => {
-    delete timeouts[id];
-    fn();
-  }, timeout);
-};
-
-export class SizeSniffer extends React.Component {
+class SizeSnifferChild extends React.Component {
   state = {
     id: Math.floor(Math.random() * Math.floor(10000)),
-    height: 0,
-    width: 0,
     self: React.createRef()
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this.queueScreenUpdate);
     this.updateSize();
   }
 
-  componentWillUnmount() {
-    debounce({ id: this.state.id, cancelTimer: true });
-    window.removeEventListener('resize', this.queueScreenUpdate);
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.updateSize();
+    }
   }
 
   updateSize = () => {
@@ -38,21 +36,13 @@ export class SizeSniffer extends React.Component {
     });
   };
 
-  queueScreenUpdate = () => {
-    debounce({ id: this.state.id, fn: this.updateSize });
-  };
-
   render() {
     const { width, height } = this.state;
 
     return (
-      <WindowConsumer>
-        {windowValues => (
-          <div className="c-size-sniffer" ref={this.state.self}>
-            {this.props.children({ ...windowValues, width, height })}
-          </div>
-        )}
-      </WindowConsumer>
+      <div className="c-size-sniffer" ref={this.state.self}>
+        {this.props.children({ ...this.props.windowValues, width, height })}
+      </div>
     );
   }
 }
