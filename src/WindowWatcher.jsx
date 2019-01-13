@@ -17,7 +17,10 @@ const debounce = ({ id = 1, fn, timeout = 400 }) => {
   }, timeout);
 };
 
-const WindowSizeContext = React.createContext({ width: 0, height: 0 });
+const WindowSizeContext = React.createContext({
+  windowWidth: 0,
+  windowHeight: 0
+});
 export const WindowConsumer = WindowSizeContext.Consumer;
 
 export class WindowWatcher extends React.Component {
@@ -37,12 +40,12 @@ export class WindowWatcher extends React.Component {
       ...this.props.breakpoints
     };
 
-    const width = Math.round(window.innerWidth);
-    const height = Math.round(window.innerWidth);
-    const isSmall = width < medium;
-    const isMedium = width >= medium && width < large;
-    const isLarge = width >= large && width < xLarge;
-    const isXLarge = width >= xLarge;
+    const windowWidth = Math.round(window.innerWidth);
+    const windowHeight = Math.round(window.innerWidth);
+    const isSmall = windowWidth < medium;
+    const isMedium = windowWidth >= medium && windowWidth < large;
+    const isLarge = windowWidth >= large && windowWidth < xLarge;
+    const isXLarge = windowWidth >= xLarge;
     const size = [
       { bool: isSmall, str: 'small' },
       { bool: isMedium, str: 'medium' },
@@ -51,8 +54,8 @@ export class WindowWatcher extends React.Component {
     ].find(({ bool }) => bool).str;
 
     this.setState({
-      width,
-      height,
+      windowWidth,
+      windowHeight,
       isSmall,
       isMedium,
       isLarge,

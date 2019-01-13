@@ -1,15 +1,10 @@
 import React from 'react';
 
-const breakpoints = {
-  small: 420,
-  medium: 740,
-  large: 980,
-  xLarge: 1300
-};
+import { WindowConsumer } from './WindowWatcher';
 
 const timeouts = {};
 
-const debounce = ({ id = 1, fn, timeout = 400 }) => {
+const debounce = ({ id, fn, timeout = 400 }) => {
   clearTimeout(timeouts[id]);
   timeouts[id] = setTimeout(() => {
     delete timeouts[id];
@@ -21,7 +16,8 @@ export class SizeSniffer extends React.Component {
   state = {
     id: Math.floor(Math.random() * Math.floor(10000)),
     height: 0,
-    width: 0
+    width: 0,
+    self: React.createRef()
   };
 
   componentDidMount() {
@@ -34,30 +30,11 @@ export class SizeSniffer extends React.Component {
     window.removeEventListener('resize', this.queueScreenUpdate);
   }
 
-  getSize = () => {
-    const size = this.props.watchWindow
-      ? { width: window.innerWidth, height: window.innerHeight }
-      : this.state.self.current.getBoundingClientRect();
-    return {
-      width: Math.round(size.width),
-      height: Math.round(size.height)
-    };
-  };
-
   updateSize = () => {
-    const { height, width } = this.getSize();
-    const { medium, large, xLarge } = {
-      ...breakpoints,
-      ...this.props.breakpoints
-    };
-
+    const { height, width } = this.state.self.current.getBoundingClientRect();
     this.setState({
-      height,
-      width,
-      isSmall: width < medium,
-      isMedium: width >= medium && width < large,
-      isLarge: width >= large && width < xLarge,
-      isXLarge: width >= xLarge
+      width: Math.round(width),
+      height: Math.round(height)
     });
   };
 
@@ -66,19 +43,16 @@ export class SizeSniffer extends React.Component {
   };
 
   render() {
-    const { height, width, isSmall, isMedium, isLarge, isXLarge } = this.state;
+    const { width, height } = this.state;
 
     return (
-      <div className="c-size-sniffer" ref={this.state.self}>
-        {this.props.children({
-          height,
-          width,
-          isSmall,
-          isMedium,
-          isLarge,
-          isXLarge
-        })}
-      </div>
+      <WindowConsumer>
+        {windowValues => (
+          <div className="c-size-sniffer" ref={this.state.self}>
+            {this.props.children({ ...windowValues, width, height })}
+          </div>
+        )}
+      </WindowConsumer>
     );
   }
 }
