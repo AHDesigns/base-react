@@ -22,6 +22,20 @@
   color: #61dafb;
 }
 
+.box {
+  border: thin solid black;
+  /* opacity: 0.3; */
+}
+
+.u-margin {
+  margin: 50px;
+}
+
+.blue { background-color: #D6DAFE; }
+.red { background-color: #FED6D6; }
+.green { background-color: #D6FED7; }
+.yellow { background-color: #FEFAD6; }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
