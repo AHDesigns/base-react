@@ -24,17 +24,26 @@ class App extends Component {
   toggle = () => {
     this.setState(({ page }) => ({ page: !page }));
   };
+
   render() {
     return (
       <WindowWatcher>
         <button onClick={this.toggle}>page toggle</button>
         {!this.state.page && (
-          <div className="layout-wrapper">
-            <div style={{ flexGrow: '1' }}>
-              <Sniffed>{() => {}}</Sniffed>
+          <React.Fragment>
+            <div className="layout-wrapper">
+              <div style={{ flexGrow: '1' }}>
+                <Sniffed>{() => {}}</Sniffed>
+              </div>
+              <Expand growStyle="transition" />
             </div>
-            <Expand />
-          </div>
+            <div className="layout-wrapper">
+              <div style={{ flexGrow: '1' }}>
+                <Sniffed>{() => {}}</Sniffed>
+              </div>
+              <Expand growStyle="animation" />
+            </div>
+          </React.Fragment>
         )}
         {this.state.page && (
           <div className="App">

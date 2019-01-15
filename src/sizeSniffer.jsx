@@ -14,7 +14,6 @@ export const SizeSniffer = ({ children }) => (
 
 class SizeSnifferChild extends React.Component {
   state = {
-    id: Math.floor(Math.random() * Math.floor(10000)),
     self: React.createRef()
   };
 

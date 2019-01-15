@@ -1,21 +1,13 @@
 import React from 'react';
 
+import { debounce } from './debounce';
+
 const globalBreakpoints = {
   small: 420,
   medium: 740,
   large: 980,
   xLarge: 1300
 };
-
-const timeouts = {};
-
-export function debounce({ id, fn, timeout = 400 }) {
-  clearTimeout(timeouts[id]);
-  timeouts[id] = setTimeout(() => {
-    delete timeouts[id];
-    fn();
-  }, timeout);
-}
 
 const WindowSizeContext = React.createContext({ windowWidth: 0, height: 0 });
 export const WindowConsumer = WindowSizeContext.Consumer;
@@ -26,6 +18,14 @@ export class WindowWatcher extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.queueWindowCalc);
     this.getWindowSize();
+    window.addEventListener('transitionend', function(e) {
+      console.log('called')
+      console.log(e)
+    });
+    window.addEventListener('animationiteration', function(e) {
+      console.log('called')
+      console.log(e)
+    });
   }
 
   componentWillUnmount() {
@@ -66,7 +66,7 @@ export class WindowWatcher extends React.Component {
   };
 
   queueWindowCalc = () => {
-    debounce({ fn: this.getWindowSize });
+    debounce({ id: 'window', fn: this.getWindowSize });
   };
 
   render() {
