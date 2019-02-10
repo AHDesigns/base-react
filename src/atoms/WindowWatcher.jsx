@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { debounce } from './debounce';
+import { debounce } from '../utils/debounce';
 
 const globalBreakpoints = {
   small: 420,
@@ -19,12 +19,12 @@ export class WindowWatcher extends React.Component {
     window.addEventListener('resize', this.queueWindowCalc);
     this.getWindowSize();
     window.addEventListener('transitionend', function(e) {
-      console.log('called')
-      console.log(e)
+      console.log('called');
+      console.log(e);
     });
     window.addEventListener('animationiteration', function(e) {
-      console.log('called')
-      console.log(e)
+      console.log('called');
+      console.log(e);
     });
   }
 
