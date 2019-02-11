@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 
-import { SizeSniffer } from '../atoms/sizeSniffer';
-import { WindowWatcher } from '../atoms/WindowWatcher';
-import { Comp } from '../atoms/Tester';
-import { Expand } from '../atoms/Expand';
+import { SizeSniffer, WindowWatcher, Comp, Expand } from '../../atoms';
 
 const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
   <SizeSniffer>
@@ -16,7 +12,7 @@ const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
   </SizeSniffer>
 );
 
-class App extends Component {
+export class App extends Component {
   state = {
     page: true
   };
@@ -64,5 +60,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

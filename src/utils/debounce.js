@@ -10,11 +10,10 @@ export function debounce({ id, fn, timeout = 400 }) {
   }, timeout);
 }
 
-
 export const debounceWithoutId = (callback, wait = 400) => {
   let timeout;
-  return (params) => {
-    console.log(params)
+  return params => {
+    console.log(params);
     clearTimeout(timeout);
     timeout = setTimeout(params => callback(params), wait);
   };
