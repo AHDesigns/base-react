@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { debounce } from '../utils';
+import { debounce } from 'utils/debounce';
 
 const globalBreakpoints = {
   small: 420,

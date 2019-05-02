@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "target": "es2016",
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "pages/*": ["./src/pages/*"],
+      "utils/*": ["./src/utils/*"],
+      "atoms/*": ["./src/atoms/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
