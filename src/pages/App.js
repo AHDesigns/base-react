@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import { SizeSniffer } from 'atoms/sizeSniffer';
 import { WindowWatcher } from 'atoms/WindowWatcher';
