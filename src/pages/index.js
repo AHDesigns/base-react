@@ -1,3 +1,1 @@
-import './App.css';
-
-export { App } from './App';
+export { App } from './app';

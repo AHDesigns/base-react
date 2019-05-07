@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { SizeSniffer, WindowWatcher, Comp, Expand } from '../../atoms';
+import { SizeSniffer, WindowWatcher, Comp, Expand } from 'atoms';
 
 const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
   <SizeSniffer>
