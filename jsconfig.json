@@ -6,9 +6,9 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "pages/*": ["./src/pages/*"],
-      "utils/*": ["./src/utils/*"],
-      "atoms/*": ["./src/atoms/*"]
+      "pages": ["./src/pages"],
+      "utils": ["./src/utils"],
+      "atoms": ["./src/atoms"]
     }
   },
   "include": ["src/**/*"]
