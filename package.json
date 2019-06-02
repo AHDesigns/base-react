@@ -14,7 +14,7 @@
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "build": "NODE_PATH=src/ react-scripts build",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "build-storybook -s public --output-dir './docs'",
     "serve": "serve -s build"
   },
   "browserslist": [
