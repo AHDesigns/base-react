@@ -17,6 +17,29 @@ export class App extends Component {
     page: true
   };
 
+  componentDidMount() {
+    fetch('/graphql', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: '{\"query\":\"{ hello }\"}'
+    })
+      .then(res => {
+        res
+          .json()
+          .then(d => {
+            console.log(d);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   toggle = () => {
     this.setState(({ page }) => ({ page: !page }));
   };
