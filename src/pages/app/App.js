@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { SizeSniffer, WindowWatcher, Comp, Expand } from 'atoms';
+import { SizeSniffer, WindowWatcher, Comp, Expand, constants } from 'atoms';
 
 const Sniffed = ({ children, cssClassName, colorIdx, watchWindow }) => (
   <SizeSniffer>
@@ -18,7 +18,7 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    fetch('/graphql', {
+    fetch(`${constants.baseURL}/graphql`, {
       headers: {
         'Content-Type': 'application/json'
       },
