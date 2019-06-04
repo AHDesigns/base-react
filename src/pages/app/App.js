@@ -23,7 +23,7 @@ export class App extends Component {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: '{\"query\":\"{ hello }\"}'
+      body: '{"query":"{ hello }"}'
     })
       .then(res => {
         res

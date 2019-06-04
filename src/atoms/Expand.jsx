@@ -12,14 +12,14 @@ function mutationCallback(mutationsList, observer) {
     }
   }
 }
-function resizeCallback(entries) {
-  console.log('called');
-  console.log(entries);
-  // for (let entry of entries) {
-  //   entry.target.style.borderRadius =
-  //     Math.max(0, 250 - entry.contentRect.width) + 'px';
-  // }
-}
+// function resizeCallback(entries) {
+//   console.log('called');
+//   console.log(entries);
+//   // for (let entry of entries) {
+//   //   entry.target.style.borderRadius =
+//   //     Math.max(0, 250 - entry.contentRect.width) + 'px';
+//   // }
+// }
 
 export class Expand extends React.Component {
   componentDidMount() {
